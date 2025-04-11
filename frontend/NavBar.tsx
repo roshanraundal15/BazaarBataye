@@ -2,7 +2,7 @@
 
 const NavBar = () => {
   const handlePredictNow = () => {
-    window.location.href = 'http://localhost:8503';
+    window.location.href = 'bazaar-bataye-1nax-iz23y6ez8-roshan-raundals-projects.vercel.app';
   };
 
   return (
