@@ -2,7 +2,7 @@ import { ShieldCheck } from 'lucide-react';
 
 const HeroSection = () => {
   const handlePredictNow = () => {
-    window.location.href = 'http://localhost:8501';
+    window.location.href = 'bazaar-bataye-olqf-54bfbhfxe-roshan-raundals-projects.vercel.app';
   };
 
   const handleQualityCheck = () => {
