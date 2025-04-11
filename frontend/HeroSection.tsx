@@ -6,7 +6,7 @@ const HeroSection = () => {
   };
 
   const handleQualityCheck = () => {
-    window.location.href = 'http://localhost:8502';
+    window.location.href = 'bazaar-bataye-fsjb-a2vw4o2l8-roshan-raundals-projects.vercel.app';
   };
 
   return (
