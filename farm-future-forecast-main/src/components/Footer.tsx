@@ -10,7 +10,7 @@ const Footer = () => {
               <li><a href="https://github.com/roshanraundal15" className="text-white/80 hover:text-white transition-colors">Roshan Raundal</a></li>
               <li><a href="https://github.com/karanpanchallll" className="text-white/80 hover:text-white transition-colors">Karan Panchal</a></li>
               <li><a href="https://github.com/mayursapkal41" className="text-white/80 hover:text-white transition-colors">Mayur Sapkal</a></li>
-              <li><a href="https://github.com/faiz478" className="text-white/80 hover:text-white transition-colors">Faizal Shaikh</a></li>
+              
             </ul>
           </div>
 
@@ -21,7 +21,7 @@ const Footer = () => {
               <p className="text-white/80">raundal2001@gmail.com</p>
               <p className="text-white/80">panchalkaran@gmail.com</p>
               <p className="text-white/80">mayursapkal41@gmail.com</p>
-              <p className="text-white/80">faizalshaikh5289@gmail.com</p>
+              
             </address>
           </div>
 
