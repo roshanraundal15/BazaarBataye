@@ -59,7 +59,6 @@ Python 3.8+
 Node.js & npm (for the frontend)
 A Google Cloud Project with the Vertex AI API enabled.
 A Service Account with the 'Vertex AI User' role for your Google Cloud Project.
-A JSON key file for your Service Account. Keep this file secure and do not commit it to your repository.
 A dataset for crop quality prediction in the dataset directory (structured as dataset/good/, dataset/average/, dataset/bad/ with reference images inside).
 A CSV data file named maharashtra_market_daily_complete.csv containing commodity price data.
 1. Frontend Setup
@@ -100,12 +99,7 @@ Bash
 cd Bazaar-Bataye/agri_commodity_forecasting # Or the directory where your main Streamlit app.py is
 (Note: If all your Streamlit code is in a single app.py in the root, you might not need to cd into a subdirectory).
 
-Create a Python virtual environment (highly recommended):
 
-Bash
-
-python -m venv venv_streamlit
-source venv_streamlit/bin/activate # On Windows: `venv_streamlit\Scripts\activate`
 Install Python dependencies:
 Create a requirements.txt file in the root of your Streamlit app's directory (or the main project root if it's a single app.py) with the following content:
 
@@ -128,8 +122,6 @@ Place data and model files:
 
 Ensure maharashtra_market_daily_complete.csv is in the same directory as your Streamlit app.py (or correctly relative to it).
 Place your crop quality prediction dataset directory (containing good, average, bad subfolders with images) in the same location as the relevant Streamlit app.py for quality prediction.
-Set up Google Cloud Authentication for local testing:
-
 
 
 Bash
@@ -150,10 +142,6 @@ Make sure all your Streamlit application files, including app.py, maharashtra_ma
 CRITICAL: Do NOT commit your Google Cloud Service Account JSON key file or hardcoded API keys to GitHub.
 Configure Google Cloud Service Account as a Streamlit Secret:
 
-Go to your Streamlit Community Cloud dashboard (share.streamlit.io).
-Select your deployed app (or deploy a new one if this is your first time).
-Go to Settings (usually a gear icon or three dots) for your app, and then click "Secrets".
-Add a new secret with the key GOOGLE_APPLICATION_CREDENTIALS.
 For the value, copy and paste the entire content of your Google Cloud Service Account JSON key file (downloaded during prerequisites) into the value field. This will securely provide your app with the necessary credentials to interact with Vertex AI/Gemini.
 Set Google Cloud Project ID and Location in app.py:
 
