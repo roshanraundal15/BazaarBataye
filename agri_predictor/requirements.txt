@@ -5,3 +5,4 @@ plotly
 reportlab
 requests
 prophet
+google-generativeai
