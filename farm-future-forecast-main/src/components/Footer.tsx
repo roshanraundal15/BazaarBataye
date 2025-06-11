@@ -31,7 +31,7 @@ const Footer = () => {
             <div className="aspect-w-16 aspect-h-9">
               <iframe
                 className="rounded-xl w-full h-48 md:h-60"
-                src="https://youtu.be/yYJNuWuqjG8"
+                src="https://www.youtube.com/embed/yYJNuWuqjG8"
                 title="Bazaar Bataye Demo"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
