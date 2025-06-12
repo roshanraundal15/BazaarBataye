@@ -8,7 +8,7 @@ from PIL import Image
 # DATASET_PATH is correctly set to "dataset" because 'dataset' folder
 # is a sibling to app.py inside the 'image_detection' directory
 DATASET_PATH = "dataset"
-QUALITY_LABELS = ["good", "average", "bad"]
+QUALITY_LABELS = ["average", "bad", "good"]
 IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png')
 
 # ------------------ ORB Feature Extractor -------------------
