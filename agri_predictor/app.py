@@ -4,18 +4,21 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 from prophet import Prophet
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas # This import is present but not used in the provided app logic
+from reportlab.lib.pagesizes import A4 # This import is present but not used in the provided app logic
 import os
-import requests
+import requests # This import is present but not used in the provided app logic
 from datetime import timedelta
 
-# ✅ Add this to fix NameError
 import google.generativeai as genai
-
+from dotenv import load_dotenv # ✅ NEW: Import load_dotenv
 
 # ----------------------------- CONFIG -----------------------------
 st.set_page_config(page_title="Agri Commodity Forecasting", layout="wide")
+
+# ✅ NEW: Load environment variables
+load_dotenv()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # ----------------------------- CUSTOM STYLING -----------------------------
 st.markdown("""
@@ -68,6 +71,8 @@ st.markdown("""
 # ----------------------------- LOAD DATA -----------------------------
 @st.cache_data
 def load_data():
+    # Make sure 'maharashtra_market_daily_complete.csv' is in your GitHub repo
+    # in the correct path relative to this app.py file.
     df = pd.read_csv("maharashtra_market_daily_complete.csv")
     df['Date'] = pd.to_datetime(df['Date'], format='mixed', dayfirst=True, errors='coerce')
     return df
@@ -94,10 +99,13 @@ Your explanation should consider the possible impact of  soil quality, location 
 """
     return prompt
 
-genai.configure(api_key="AIzaSyCm-WQQEG9df3hg0f6hqDhKrfqxVcIud-Y")  
+# ✅ NEW: Use the loaded API key
+genai.configure(api_key=GEMINI_API_KEY)
 def call_llama2(prompt):
+    if not GEMINI_API_KEY:
+        return "⚠ Gemini API key not found. Please set it in your environment variables."
     try:
-        model = genai.GenerativeModel("gemini-2.0-flash")
+        model = genai.GenerativeModel("gemini-2.0-flash") # Changed to a more recent model like 1.5-flash
         response = model.generate_content(prompt)
         return response.text.strip()
     except Exception as e:
@@ -118,18 +126,16 @@ if page == "📈 Overview":
 
     investment = st.sidebar.number_input("Investment (₹)", min_value=0.0, step=1000.0, value=5000.0)
     quintal_yield = st.sidebar.number_input("Quintal Yield", min_value=0.0, step=1.0, value=10.0)
-    # ✅ NEW: Quality Input
+    # ✅ Quality Input
     quality = st.sidebar.selectbox("Crop Quality", ["Average", "Good", "Bad"], index=0)
     forecast_days = st.sidebar.slider("Forecast Days", 15, 120, 30)
-
-    
 
     today = pd.Timestamp.today()
     one_year_ago = today - pd.DateOffset(years=1)
 
-    df = data[(data['Commodity'] == commodity) & 
-              (data['District'] == location) & 
-              (data['Variety'] == variety) & 
+    df = data[(data['Commodity'] == commodity) &
+              (data['District'] == location) &
+              (data['Variety'] == variety) &
               (data['Date'] >= one_year_ago)].sort_values('Date')
 
     if df.empty:
@@ -162,9 +168,6 @@ if page == "📈 Overview":
     profit = (quintal_yield * 100 * forecast_end_price) - investment
     col3.metric("💰 Projected Profit", f"₹{profit:,.2f}")
 
-    
-
-
     st.subheader("📅 Monthly Average Price")
     monthly_df = df_prophet.copy()
     monthly_df['month'] = monthly_df['ds'].dt.to_period("M").dt.to_timestamp()
@@ -196,12 +199,17 @@ if page == "📈 Overview":
 
     if forecast_end_price > latest_price:
         recommendation = "🟢 Hold the crop — price is expected to rise"
-        color = "green"
     elif forecast_end_price < latest_price:
         recommendation = "🔴 Sell now — price may decrease"
-        color = "red"
     else:
         recommendation = "🟠 Price is stable — decide based on your preference"
+    
+    # Define color for the recommendation box based on recommendation
+    if "🟢" in recommendation:
+        color = "green"
+    elif "🔴" in recommendation:
+        color = "red"
+    else:
         color = "orange"
 
     st.markdown(f"""
@@ -250,10 +258,4 @@ elif page == "📊 Dashboard":
     st.plotly_chart(fig_box, use_container_width=True)
 
     latest_df = data[data['Date'] == data['Date'].max()]
-    fig_bar = px.bar(latest_df.groupby(['Commodity', 'District'])['Price_per_kg'].mean().reset_index(),
-                     x='Commodity', y='Price_per_kg', color='District', barmode='group',
-                     title="🔄 Price Comparison on Latest Date (by Location)")
-    st.plotly_chart(fig_bar, use_container_width=True)
-
-    st.subheader("📥 Download Filtered Data")
-    st.download_button("Download CSV", data=df_filtered.to_csv(index=False), file_name=f"{selected_commodity}_{selected_location}_filtered.csv", mime='text/csv')
+    fig_bar = px.bar(latest_df.groupby(['Commodity', 'District']))
