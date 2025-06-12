@@ -5,10 +5,8 @@ import os
 from PIL import Image
 
 # ------------------ CONFIG -------------------
-# DATASET_PATH is correctly set to "dataset" because 'dataset' folder
-# is a sibling to app.py inside the 'image_detection' directory
 DATASET_PATH = "dataset"
-QUALITY_LABELS = ["good", "bad", "average"]
+QUALITY_LABELS = ["good", "average", "bad"]
 IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png')
 
 # ------------------ ORB Feature Extractor -------------------
@@ -35,24 +33,11 @@ def predict_quality(uploaded_img):
     predicted_quality = "Unknown"
 
     for quality in QUALITY_LABELS:
-        # This path resolution is correct: "dataset/good", "dataset/average", etc.
         quality_dir = os.path.join(DATASET_PATH, quality)
-        
-        # Add a check for directory existence for better debugging
-        if not os.path.isdir(quality_dir):
-            st.error(f"Error: Reference directory not found: {quality_dir}. "
-                     "Make sure your 'dataset' folder and its subdirectories are correctly copied.")
-            return "Error", 0 # Return an error state to prevent further issues
-
         for filename in os.listdir(quality_dir):
             if filename.lower().endswith(IMG_EXTENSIONS):
                 ref_img_path = os.path.join(quality_dir, filename)
                 ref_img = cv2.imread(ref_img_path)
-                
-                if ref_img is None: # Handle case where image fails to load
-                    st.warning(f"Could not load reference image: {ref_img_path}")
-                    continue
-
                 ref_img = cv2.resize(ref_img, (uploaded_img.shape[1], uploaded_img.shape[0]))
                 ref_img = cv2.cvtColor(ref_img, cv2.COLOR_BGR2RGB)
                 ref_desc = extract_orb_features(ref_img)
@@ -86,14 +71,11 @@ if uploaded_file:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image", use_container_width=True)
 
-    if st.button("Predict Quality"):
-        # Add a check for successful prediction
-        label, score = predict_quality(image)
-        if label == "Error":
-            st.error("Prediction failed due to an internal error (check logs).")
-        else:
-            st.success(f"🧠 Predicted Quality: **{label.upper()}** (Similarity Score: {score})")
 
-            # Explanation
-            explanation = generate_explanation(label)
-            st.info(f"📘 Explanation: {explanation}")
+    if st.button("Predict Quality"):
+        label, score = predict_quality(image)
+        st.success(f"🧠 Predicted Quality: **{label.upper()}** (Similarity Score: {score})")
+
+        # Explanation
+        explanation = generate_explanation(label)
+        st.info(f"📘 Explanation: {explanation}")
