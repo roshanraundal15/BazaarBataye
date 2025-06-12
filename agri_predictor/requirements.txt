@@ -6,3 +6,4 @@ reportlab
 requests
 prophet
 google-generativeai
+python-dotenv
