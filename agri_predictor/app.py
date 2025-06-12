@@ -73,7 +73,7 @@ st.markdown("""
 def load_data():
     # Make sure 'maharashtra_market_daily_complete.csv' is in your GitHub repo
     # in the correct path relative to this app.py file.
-    df = pd.read_csv("maharashtra_market_daily_complete.csv")
+    df = pd.read_csv("/mount/src/bazaarbataye/agri_predictor/maharashtra_market_daily_complete.csv")
     df['Date'] = pd.to_datetime(df['Date'], format='mixed', dayfirst=True, errors='coerce')
     return df
 
