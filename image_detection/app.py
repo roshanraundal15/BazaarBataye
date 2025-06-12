@@ -93,7 +93,6 @@ def generate_explanation(quality_label):
         return "This crop is of good quality. It is likely to fetch a higher price in the market and indicates healthy farming practices."
     elif quality_label == "average":
         return "This crop is of average quality. It may be sold at a standard price, but improvements in farming or storage could help."
-    ... (rest of your generate_explanation function)
     elif quality_label == "bad":
         return "This crop is of poor quality. It could reduce the market price and may indicate issues like pest damage, improper irrigation, or storage problems."
     else:
