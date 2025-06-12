@@ -5,7 +5,7 @@ import os
 from PIL import Image
 
 # ------------------ CONFIG -------------------
-DATASET_PATH = "dataset"
+DATASET_PATH = "/mount/src/bazaarbataye/image_detection/dataset"
 QUALITY_LABELS = ["good", "average", "bad"]
 IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png')
 
