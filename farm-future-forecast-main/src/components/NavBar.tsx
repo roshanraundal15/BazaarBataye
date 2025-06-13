@@ -2,7 +2,7 @@
 
 const NavBar = () => {
   const handlePredictNow = () => {
-    window.location.href = 'http://localhost:8503';
+    window.location.href = 'https://agri-bot-gdg.streamlit.app/';
   };
 
   return (
