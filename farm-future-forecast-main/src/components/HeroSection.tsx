@@ -2,7 +2,7 @@ import { ShieldCheck } from 'lucide-react';
 
 const HeroSection = () => {
   const handlePredictNow = () => {
-    window.location.href = 'http://localhost:8501';
+    window.location.href = 'https://agri-predictor-gdg.streamlit.app/';
   };
 
   const handleQualityCheck = () => {
