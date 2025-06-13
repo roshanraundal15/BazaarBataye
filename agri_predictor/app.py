@@ -214,7 +214,7 @@ if page == "📈 Overview":
 
     st.markdown(f"""
     <div class="glass-box" style="border-left: 6px solid {color};">
-        <h3>📌 AI-ML Based Recommendation</h3>
+        <h3>💡 AI-Driven Actionable Advice</h3>
         <strong>Latest Price:</strong> ₹{latest_price:.2f} <br>
         <strong>Forecasted End Price:</strong> ₹{forecast_end_price:.2f} <br>
         <strong>Thresholds:</strong> ₹{lower_threshold:.2f} (Lower), ₹{upper_threshold:.2f} (Upper)<br>
