@@ -109,7 +109,7 @@ const Index = () => {
             </p>
             
             <a 
-              href="http://localhost:8501" 
+              href="https://agri-predictor-gdg.streamlit.app/" 
               className="inline-flex items-center px-8 py-3 bg-white text-ag-green-dark rounded-full 
                          font-medium shadow-lg hover:shadow-xl hover:bg-ag-gold-light transition-all duration-300"
             >
