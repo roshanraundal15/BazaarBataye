@@ -74,7 +74,7 @@ if uploaded_file:
 
     if st.button("Predict Quality"):
         label, score = predict_quality(image)
-        st.success(f"🧠 Predicted Quality: **{label.upper()}** (Similarity Score: {score})")
+        st.success(f"🧠 Predicted Quality: **{label.upper()}**")
 
         # Explanation
         explanation = generate_explanation(label)
